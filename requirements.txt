@@ -1,0 +1,3 @@
+rtmidi
+gspread
+oauth2client  # for Google Sheets API auth
