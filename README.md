@@ -1,96 +1,102 @@
 # FCB1010 Editor
 
-A Python library for interfacing with the Behringer FCB1010 MIDI foot controller. This library allows you to read, write, and edit presets for the FCB1010, as well as to control it via MIDI messages.
+A Python library and command-line tool for editing and managing Behringer FCB1010 MIDI foot controller presets.
 
 ## Features
 
-- Connect to FCB1010 via MIDI
-- Send and receive MIDI messages
-- Read and write presets
-- Edit presets programmatically
-- Google Sheets integration for easy preset editing
+- Edit, save, and load FCB1010 presets
+- Command-line interface for preset management
+- Send presets to hardware (requires connected FCB1010)
+- Google Sheets integration (optional)
+- Modular, testable codebase
 
-## Installation
+## Project Structure
 
-```bash
-# Clone the repository
-git clone https://github.com/yourusername/fcb1010-editor.git
-cd fcb1010-editor
-
-# Create a virtual environment
-python3 -m venv .venv
-source .venv/bin/activate
-
-# Install the dependencies
-pip install -r requirements.txt
 ```
+.
+├── scripts/         # CLI tools and integration scripts
+├── src/fcb1010/     # Core library code
+├── tests/           # Unit tests
+├── docs/            # Documentation and best practices
+├── requirements.txt # Python dependencies
+├── pyproject.toml   # Tooling config (black, flake8, etc.)
+├── Makefile         # Common developer tasks
+└── README.md        # This file
+```
+
+## Setup
+
+1. Install dependencies:
+   ```sh
+   pip install -r requirements.txt
+   ```
+2. (Optional) Set up a virtual environment:
+   ```sh
+   python3 -m venv venv
+   source venv/bin/activate
+   ```
 
 ## Usage
 
-### Basic Usage
-
-```python
-from fcb1010 import FCB1010, Preset
-
-# Connect to FCB1010
-fcb = FCB1010()
-
-# Send a program change message
-fcb.send_program_change(10)
-
-# Send a control change message
-fcb.send_control_change(7, 127)  # Set volume to max
-
-# Close the connection
-fcb.close()
-```
-
-### Working with Presets
-
-```python
-# Create a new preset
-preset = Preset(5, "My Awesome Preset")
-
-# Add program and control changes
-preset.add_program_change(10, channel=0)
-preset.add_control_change(7, 127, channel=0)  # Volume
-preset.add_control_change(10, 64, channel=0)  # Pan
-
-# Convert to dictionary for saving
-preset_data = preset.to_dict()
-
-# Create from dictionary
-loaded_preset = Preset.from_dict(preset_data)
-```
-
-### Example Scripts
-
-Check out the `scripts` directory for example usage:
-
-```bash
-# Run the example script
-python scripts/example_usage.py
-```
-
-## Testing
-
-To run the tests:
-
-```bash
-python -m unittest discover tests
-```
-
-## Requirements
-
-- Python 3.6+
-- rtmidi
-- gspread (for Google Sheets integration)
-- oauth2client (for Google Sheets authentication)
-
-## License
-
-MIT
+- Run the CLI editor:
+  ```sh
+  python3 scripts/editor.py
+  ```
+- Run tests:
+  ```sh
+  make test
+  ```
+- Lint and format code:
+  ```sh
+  make lint
+  make format
+  ```
 
 ## Contributing
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+See `CONTRIBUTING.md` for guidelines.
+
+## Documentation
+
+See the `docs/` folder for best practices, architecture, and troubleshooting.
+
+---
+
+## Next Steps & Expansion
+
+1. **Documentation Improvements**
+   - Expand and update `docs/` with more usage examples and troubleshooting tips.
+   - Add API documentation for all public classes and functions.
+
+2. **Testing**
+   - Increase test coverage, especially for CLI and integration scripts.
+   - Add integration tests for hardware communication (mocking MIDI if needed).
+
+3. **Code Quality**
+   - Address remaining lint warnings (mainly line length, E501).
+   - Refactor long functions for readability and maintainability.
+
+4. **Features**
+   - Enhance Google Sheets integration and document its setup.
+   - Add preset import/export for other formats (e.g., CSV, XML).
+   - Implement a GUI (e.g., with Tkinter or PyQt) for users who prefer graphical editing.
+
+5. **Packaging & Distribution**
+   - Add a `setup.py` or update for PyPI distribution.
+   - Provide Dockerfile or devcontainer.json for reproducible environments.
+
+6. **Developer Experience**
+   - Add pre-commit hooks for linting/formatting.
+   - Add GitHub Actions for CI (lint, test, build).
+
+7. **User Experience**
+   - Add more helpful CLI prompts and error messages.
+   - Support batch operations and scripting via CLI arguments.
+
+8. **Community**
+   - Write a Code of Conduct and expand contribution guidelines.
+   - Encourage users to submit issues and feature requests.
+
+---
+
+Your workspace is now clean, organized, and ready for professional development and expansion! If you want to address all remaining lint warnings or need help with any of the next steps, just let me know.

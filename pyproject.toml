@@ -1,0 +1,10 @@
+[tool.black]
+line-length = 88
+target-version = ['py310']
+
+[tool.flake8]
+max-line-length = 88
+exclude = .git,__pycache__,docs,build,dist,.venv,env,venv
+
+[tool.isort]
+profile = "black"
